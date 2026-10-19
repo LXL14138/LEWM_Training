@@ -1,0 +1,664 @@
+{
+  "format": "data_gen_release_sources_v1",
+  "project_root": "<project> (the LeWM manipulation research repository; paths are relative to it)",
+  "notes": [
+    "Every code file (*.py) is a byte-identical copy of the project file (sha256_src == sha256_dst) except the entries whose 'edit' field starts with 'release:': four edited copies (convert_rrt_branches.py, tests/test_convert_rrt_branches.py, wm_training/tests/test_danger_strata.py and the new wm_training/label_audit.py; every changed or added line of those files carries a '# release:' comment) and two files written for this release with no project source (make_video.py, tests/test_make_video.py; 'src' = '(new in this release)', sha256_src / bytes_src = null).",
+    "make_video.py (new, root) renders the generated data on a machine without a display: GIFs and contact-sheet PNGs with a label bar (state index / time, worst pillar tilt, UNSAFE, grasped, branch or family name) for a raw episode directory, a dataset directory (counterfactual branches side by side with --grid), an anchor_XXXX.npz (all rollouts as a grid) and a training-cache episode .h5; numpy + Pillow + h5py only. quickstart.sh step 21 runs it into smoke_out/videos; tests/test_make_video.py (new) exercises it on synthetic frames without the simulator and is in the --with-tests list.",
+    "Documentation is the English README.md only; the project's Chinese specifications are not shipped.",
+    "Not shipped (this release is the data-generation code only): the model-training and evaluation modules of wm_training (finetune_tilt, finetune_dataset, tilt_head, train, decoder, numerics, evaluate_bench_wm, evaluate_short, short_report, score_bench, eval_cache, check_encoder_digest, safety_classifier, evaluate_danger_strata) and the two tests that need them (wm_training/tests/test_bench_cache.py, test_counterfactual_cache.py). convert_rrt_branches.py's post-conversion audit, which imported eval_cache / finetune_dataset / finetune_tilt, is skipped and recorded (see its entry).",
+    "Not shipped: rrt_data_plan.py (the campaign quota planner; the frozen plan it produced is not shipped either) and compare_rrt_branches.py (the re-collection comparison tool), with tests/test_rrt_data_plan.py and tests/test_compare_rrt_branches.py.",
+    "collect_random_branches.py / random_branches_plan.py are shipped as library code imported by rrt_branches_plan.py and collect_rrt_branches.py; their own random-action branch datasets were evaluation pools, not S1 training data.",
+    "goal_carry.py (listed as shared in the brief) is not imported by anything in this closure (only by the planner / goal-image / video tools, out of scope) and is therefore not shipped.",
+    "wm_training/tests/test_provenance.py is not shipped: it imports wm_training.evaluate_stop_policy (out of scope)."
+  ],
+  "files": [
+    {
+      "src": "collect_exploration_trajs.py",
+      "dst": "collect_exploration_trajs.py",
+      "sha256_src": "0e8890fe51ff27b0764bc094a887b705113fdf7b4eb3cf0e19c08feebd9ff7d7",
+      "bytes_src": 21140,
+      "edit": "none (verbatim)",
+      "sha256_dst": "0e8890fe51ff27b0764bc094a887b705113fdf7b4eb3cf0e19c08feebd9ff7d7",
+      "bytes_dst": 21140
+    },
+    {
+      "src": "exploration.py",
+      "dst": "exploration.py",
+      "sha256_src": "96e7eca86c3662e6f35f9d62be310e0ed0f92c4a67b3d531418278f3cfeebc48",
+      "bytes_src": 27422,
+      "edit": "none (verbatim)",
+      "sha256_dst": "96e7eca86c3662e6f35f9d62be310e0ed0f92c4a67b3d531418278f3cfeebc48",
+      "bytes_dst": 27422
+    },
+    {
+      "src": "benchmark_exploration.py",
+      "dst": "benchmark_exploration.py",
+      "sha256_src": "52540209b79df62052a08c96d620fc9978ebc5c2acd777c8a13450f889380855",
+      "bytes_src": 29116,
+      "edit": "none (verbatim)",
+      "sha256_dst": "52540209b79df62052a08c96d620fc9978ebc5c2acd777c8a13450f889380855",
+      "bytes_dst": 29116
+    },
+    {
+      "src": "benchmark_plan.py",
+      "dst": "benchmark_plan.py",
+      "sha256_src": "a1f990f2467168a7275f4ac3c855b7f203a54bb8763986534a14cd0f85dd0b4f",
+      "bytes_src": 17392,
+      "edit": "none (verbatim)",
+      "sha256_dst": "a1f990f2467168a7275f4ac3c855b7f203a54bb8763986534a14cd0f85dd0b4f",
+      "bytes_dst": 17392
+    },
+    {
+      "src": "collect_grasp_trajs.py",
+      "dst": "collect_grasp_trajs.py",
+      "sha256_src": "cb30a74c1eb190327fa2e95ec7b460463261ff51e9449341480606beb7b319f3",
+      "bytes_src": 21748,
+      "edit": "none (verbatim)",
+      "sha256_dst": "cb30a74c1eb190327fa2e95ec7b460463261ff51e9449341480606beb7b319f3",
+      "bytes_dst": 21748
+    },
+    {
+      "src": "auto_grasp.py",
+      "dst": "auto_grasp.py",
+      "sha256_src": "bb672bed9a1183b3f2ad9edcc47566aa8fbdc3ccac11674d92c9793ba1bb11bb",
+      "bytes_src": 23510,
+      "edit": "none (verbatim)",
+      "sha256_dst": "bb672bed9a1183b3f2ad9edcc47566aa8fbdc3ccac11674d92c9793ba1bb11bb",
+      "bytes_dst": 23510
+    },
+    {
+      "src": "collection_workers.py",
+      "dst": "collection_workers.py",
+      "sha256_src": "c7607822543ac1d7ba355ed6f8ae79fab77a3da4e389b730d51ea11f32234cd6",
+      "bytes_src": 4948,
+      "edit": "none (verbatim)",
+      "sha256_dst": "c7607822543ac1d7ba355ed6f8ae79fab77a3da4e389b730d51ea11f32234cd6",
+      "bytes_dst": 4948
+    },
+    {
+      "src": "random_starts.py",
+      "dst": "random_starts.py",
+      "sha256_src": "4f5cacfe22ab761ea767aa1457027f0828379b1ca8e02309572c1febdcc93e31",
+      "bytes_src": 10607,
+      "edit": "none (verbatim)",
+      "sha256_dst": "4f5cacfe22ab761ea767aa1457027f0828379b1ca8e02309572c1febdcc93e31",
+      "bytes_dst": 10607
+    },
+    {
+      "src": "scene_config.py",
+      "dst": "scene_config.py",
+      "sha256_src": "ef5667a1d6bcc3a74924e206db22ca20cfed4647849739049c6587d824289e2c",
+      "bytes_src": 2996,
+      "edit": "none (verbatim)",
+      "sha256_dst": "ef5667a1d6bcc3a74924e206db22ca20cfed4647849739049c6587d824289e2c",
+      "bytes_dst": 2996
+    },
+    {
+      "src": "three_block_scene.py",
+      "dst": "three_block_scene.py",
+      "sha256_src": "3d7e504915940ebfec87a24bc043734ec0353932edea1bd9eaf325dacb1776c8",
+      "bytes_src": 30557,
+      "edit": "none (verbatim)",
+      "sha256_dst": "3d7e504915940ebfec87a24bc043734ec0353932edea1bd9eaf325dacb1776c8",
+      "bytes_dst": 30557
+    },
+    {
+      "src": "task_progress.py",
+      "dst": "task_progress.py",
+      "sha256_src": "89ab0c1d1b52c506cd18e289ecee3c7ae29fc12a15173bd60073b434f35e0c1c",
+      "bytes_src": 2843,
+      "edit": "none (verbatim)",
+      "sha256_dst": "89ab0c1d1b52c506cd18e289ecee3c7ae29fc12a15173bd60073b434f35e0c1c",
+      "bytes_dst": 2843
+    },
+    {
+      "src": "counterfactual_plan.py",
+      "dst": "counterfactual_plan.py",
+      "sha256_src": "50b2cfbd55a0044032332f2cc59468801946d375425d357161bf60f52eb10851",
+      "bytes_src": 15284,
+      "edit": "none (verbatim)",
+      "sha256_dst": "50b2cfbd55a0044032332f2cc59468801946d375425d357161bf60f52eb10851",
+      "bytes_dst": 15284
+    },
+    {
+      "src": "inspect_grasp_dataset.py",
+      "dst": "inspect_grasp_dataset.py",
+      "sha256_src": "f0afd67ef596fda7f930697bcfe548216d5cbac9d0b8113f7d03132d42ad3d75",
+      "bytes_src": 28868,
+      "edit": "none (verbatim)",
+      "sha256_dst": "f0afd67ef596fda7f930697bcfe548216d5cbac9d0b8113f7d03132d42ad3d75",
+      "bytes_dst": 28868
+    },
+    {
+      "src": "exploration_validation.py",
+      "dst": "exploration_validation.py",
+      "sha256_src": "991e7f1ce6b59f22f761f6afd4ecf79013c6b8ce8693d33b5906c7b72a75c2e1",
+      "bytes_src": 8313,
+      "edit": "none (verbatim)",
+      "sha256_dst": "991e7f1ce6b59f22f761f6afd4ecf79013c6b8ce8693d33b5906c7b72a75c2e1",
+      "bytes_dst": 8313
+    },
+    {
+      "src": "benchmark_measure.py",
+      "dst": "benchmark_measure.py",
+      "sha256_src": "35dd270ae3fceb6b28230a8c3f7b715a2ffc3c39ff6dc21b80e2a7c72baf753a",
+      "bytes_src": 3187,
+      "edit": "none (verbatim)",
+      "sha256_dst": "35dd270ae3fceb6b28230a8c3f7b715a2ffc3c39ff6dc21b80e2a7c72baf753a",
+      "bytes_dst": 3187
+    },
+    {
+      "src": "benchmark_split.py",
+      "dst": "benchmark_split.py",
+      "sha256_src": "dab9e94d34ce93dd2bd89eb4a8130a8cca9240b911e3323b2ac253afae4697eb",
+      "bytes_src": 9682,
+      "edit": "none (verbatim)",
+      "sha256_dst": "dab9e94d34ce93dd2bd89eb4a8130a8cca9240b911e3323b2ac253afae4697eb",
+      "bytes_dst": 9682
+    },
+    {
+      "src": "bench_restore_check.py",
+      "dst": "bench_restore_check.py",
+      "sha256_src": "7c01864c1c89190a4048fd55151a47f452fb5211b8691ab5b3f9d0ea511a915f",
+      "bytes_src": 45467,
+      "edit": "none (verbatim)",
+      "sha256_dst": "7c01864c1c89190a4048fd55151a47f452fb5211b8691ab5b3f9d0ea511a915f",
+      "bytes_dst": 45467
+    },
+    {
+      "src": "collect_random_branches.py",
+      "dst": "collect_random_branches.py",
+      "sha256_src": "78556dcfc446425d721d63e5297c9f209bdb127355d591b06a4910d9fd5417c2",
+      "bytes_src": 48971,
+      "edit": "none (verbatim)",
+      "sha256_dst": "78556dcfc446425d721d63e5297c9f209bdb127355d591b06a4910d9fd5417c2",
+      "bytes_dst": 48971
+    },
+    {
+      "src": "random_branches_plan.py",
+      "dst": "random_branches_plan.py",
+      "sha256_src": "92439582c7562f1617bcbc6b74e79d4b80baeb8319f82035ae1ca80f629e6386",
+      "bytes_src": 44765,
+      "edit": "none (verbatim)",
+      "sha256_dst": "92439582c7562f1617bcbc6b74e79d4b80baeb8319f82035ae1ca80f629e6386",
+      "bytes_dst": 44765
+    },
+    {
+      "src": "collect_counterfactual_branches.py",
+      "dst": "collect_counterfactual_branches.py",
+      "sha256_src": "0132dc6236fc398eff9dd1ca2b53e236db444ef87d489923104d92f1910ed279",
+      "bytes_src": 41106,
+      "edit": "none (verbatim)",
+      "sha256_dst": "0132dc6236fc398eff9dd1ca2b53e236db444ef87d489923104d92f1910ed279",
+      "bytes_dst": 41106
+    },
+    {
+      "src": "counterfactual_split.py",
+      "dst": "counterfactual_split.py",
+      "sha256_src": "473133393ea1be28249cc156901fd96aee67e13190a58242296ea52480e6e0b7",
+      "bytes_src": 11667,
+      "edit": "none (verbatim)",
+      "sha256_dst": "473133393ea1be28249cc156901fd96aee67e13190a58242296ea52480e6e0b7",
+      "bytes_dst": 11667
+    },
+    {
+      "src": "collect_rrt_branches.py",
+      "dst": "collect_rrt_branches.py",
+      "sha256_src": "8b59074b881ffe10736cd0bef565a11cf0f4e87d60e6aefc7c48a2c7a1d1d015",
+      "bytes_src": 62662,
+      "edit": "none (verbatim)",
+      "sha256_dst": "8b59074b881ffe10736cd0bef565a11cf0f4e87d60e6aefc7c48a2c7a1d1d015",
+      "bytes_dst": 62662
+    },
+    {
+      "src": "rrt_action_law.py",
+      "dst": "rrt_action_law.py",
+      "sha256_src": "513d5e414b1a418d97902b95f1236217ab2e0b6535d0158be4d0c0970d546647",
+      "bytes_src": 33556,
+      "edit": "none (verbatim)",
+      "sha256_dst": "513d5e414b1a418d97902b95f1236217ab2e0b6535d0158be4d0c0970d546647",
+      "bytes_dst": 33556
+    },
+    {
+      "src": "rrt_branches_plan.py",
+      "dst": "rrt_branches_plan.py",
+      "sha256_src": "92241e1d35f706b818dc935790456fb0e55959d93d9a3c90c50af2904dfcc5ee",
+      "bytes_src": 100939,
+      "edit": "none (verbatim)",
+      "sha256_dst": "92241e1d35f706b818dc935790456fb0e55959d93d9a3c90c50af2904dfcc5ee",
+      "bytes_dst": 100939
+    },
+    {
+      "src": "rrt_pilot_yields.py",
+      "dst": "rrt_pilot_yields.py",
+      "sha256_src": "363afc378665a085dddb49c7bd14f7a50397d8e92be068f44ec9e16af781d632",
+      "bytes_src": 53057,
+      "edit": "none (verbatim)",
+      "sha256_dst": "363afc378665a085dddb49c7bd14f7a50397d8e92be068f44ec9e16af781d632",
+      "bytes_dst": 53057
+    },
+    {
+      "src": "convert_rrt_branches.py",
+      "dst": "convert_rrt_branches.py",
+      "sha256_src": "d60edbcd13b3cc490472463dfdc7cf757cd2024cb662a027cc607498956c0b52",
+      "bytes_src": 56817,
+      "edit": "release: docstring note (lines 45-48); 'import importlib.util' (56); audit_labels imported from wm_training.label_audit instead of wm_training.safety_classifier (78); IMPLEMENTATION_WM lists only the shipped modules and the constants AUDIT_MODULES / AUDIT_SKIPPED were added (110-112); verify_cache skips the post-conversion audit when the training modules are absent, prints one console line and returns {'post_conversion_audit': AUDIT_SKIPPED} (464-466); write_report writes a skipped-audit line instead of the audit line (572-579, 591). Every changed line carries a '# release:' comment; the conversion, the per-frame label audit and the upstream raw audit are unchanged.",
+      "sha256_dst": "5caaed0c96e92fc2aa277dae0b32915d6e1d41fb328b7fc768643a320147c6c9",
+      "bytes_dst": 58642
+    },
+    {
+      "src": "calibrate_rrt_action_law.py",
+      "dst": "calibrate_rrt_action_law.py",
+      "sha256_src": "e9ea64abde704b616f489ae426ccbcd39322af68de0ba93a8622de0226add99a",
+      "bytes_src": 20087,
+      "edit": "none (verbatim)",
+      "sha256_dst": "e9ea64abde704b616f489ae426ccbcd39322af68de0ba93a8622de0226add99a",
+      "bytes_dst": 20087
+    },
+    {
+      "src": "wm_training/__init__.py",
+      "dst": "wm_training/__init__.py",
+      "sha256_src": "7f77ebb07fe55056af3aafe906a7760a9c53993e07f90a03f18e991e6a144f95",
+      "bytes_src": 81,
+      "edit": "none (verbatim)",
+      "sha256_dst": "7f77ebb07fe55056af3aafe906a7760a9c53993e07f90a03f18e991e6a144f95",
+      "bytes_dst": 81
+    },
+    {
+      "src": "wm_training/prepare_data.py",
+      "dst": "wm_training/prepare_data.py",
+      "sha256_src": "c9345fe631ee0adeb166b94413e4b8b9d8f0b511c3b31607f75f8ebef009f2db",
+      "bytes_src": 16385,
+      "edit": "none (verbatim)",
+      "sha256_dst": "c9345fe631ee0adeb166b94413e4b8b9d8f0b511c3b31607f75f8ebef009f2db",
+      "bytes_dst": 16385
+    },
+    {
+      "src": "wm_training/prepare_full.py",
+      "dst": "wm_training/prepare_full.py",
+      "sha256_src": "19be31bd44a4ac2114e0d5a5a9fdfc87032193bcc239d9def3698820a0ee686a",
+      "bytes_src": 22136,
+      "edit": "none (verbatim)",
+      "sha256_dst": "19be31bd44a4ac2114e0d5a5a9fdfc87032193bcc239d9def3698820a0ee686a",
+      "bytes_dst": 22136
+    },
+    {
+      "src": "wm_training/prepare_bench.py",
+      "dst": "wm_training/prepare_bench.py",
+      "sha256_src": "ea956723c3f642def9445df63ac3a6e0af702e6a8792e2096e7704cffb426ab9",
+      "bytes_src": 15971,
+      "edit": "none (verbatim)",
+      "sha256_dst": "ea956723c3f642def9445df63ac3a6e0af702e6a8792e2096e7704cffb426ab9",
+      "bytes_dst": 15971
+    },
+    {
+      "src": "wm_training/danger_strata.py",
+      "dst": "wm_training/danger_strata.py",
+      "sha256_src": "ddd69da398b30c9c8ad2f048ddd9896a6aa00b64298f1f92f3abf2efa4a852d1",
+      "bytes_src": 26757,
+      "edit": "none (verbatim)",
+      "sha256_dst": "ddd69da398b30c9c8ad2f048ddd9896a6aa00b64298f1f92f3abf2efa4a852d1",
+      "bytes_dst": 26757
+    },
+    {
+      "src": "wm_training/provenance.py",
+      "dst": "wm_training/provenance.py",
+      "sha256_src": "f4a6be334e4ded06100c0756e9426057c065fcf2439bccc309a8b037158dc15e",
+      "bytes_src": 1924,
+      "edit": "none (verbatim)",
+      "sha256_dst": "f4a6be334e4ded06100c0756e9426057c065fcf2439bccc309a8b037158dc15e",
+      "bytes_dst": 1924
+    },
+    {
+      "src": "wm_training/dataset.py",
+      "dst": "wm_training/dataset.py",
+      "sha256_src": "0fbc74905066d964f4806e11c023062aa80e78e5b5f49bdf9d171147a29695cc",
+      "bytes_src": 6303,
+      "edit": "none (verbatim)",
+      "sha256_dst": "0fbc74905066d964f4806e11c023062aa80e78e5b5f49bdf9d171147a29695cc",
+      "bytes_dst": 6303
+    },
+    {
+      "src": "wm_training/safety_classifier.py",
+      "dst": "wm_training/label_audit.py",
+      "sha256_src": "ecefdf3921c435c5add94a26fc15f8106dcf3455cc7535d2f0a99ab82c82ec82",
+      "bytes_src": 11736,
+      "edit": "release: new file - a verbatim extract of wm_training/safety_classifier.py (LABEL_RULE = its lines 21-23 and audit_labels = its lines 26-51, byte-identical to those lines) under a one-line '# release:' header comment and the numpy import; the classifier itself (SafetyFrames, SafetyClassifier, the head I/O and metrics) is not shipped. convert_rrt_branches.py imports audit_labels from here.",
+      "sha256_dst": "edef82203f446f78b241691927f0c8b7faa59ce751e8a91da90cac541c1c6932",
+      "bytes_dst": 2184
+    },
+    {
+      "src": "tools/__init__.py",
+      "dst": "tools/__init__.py",
+      "sha256_src": "1ad8d5e5e19fa3e0da75ddd27c9d05ad48b488d0eae173d2a8604458f7c5642c",
+      "bytes_src": 77,
+      "edit": "none (verbatim)",
+      "sha256_dst": "1ad8d5e5e19fa3e0da75ddd27c9d05ad48b488d0eae173d2a8604458f7c5642c",
+      "bytes_dst": 77
+    },
+    {
+      "src": "tools/bench_precheck_report.py",
+      "dst": "tools/bench_precheck_report.py",
+      "sha256_src": "ae15594e967d27c5e43343267cc0ba540e4aef77e35c0e403b125ef0d789d774",
+      "bytes_src": 7319,
+      "edit": "none (verbatim)",
+      "sha256_dst": "ae15594e967d27c5e43343267cc0ba540e4aef77e35c0e403b125ef0d789d774",
+      "bytes_dst": 7319
+    },
+    {
+      "src": "tools/bench_cell_gallery.py",
+      "dst": "tools/bench_cell_gallery.py",
+      "sha256_src": "08f559d948f463772598d9fb7a5eeee3e0ced7d4f8dc9dda50c3ccda011be849",
+      "bytes_src": 4117,
+      "edit": "none (verbatim)",
+      "sha256_dst": "08f559d948f463772598d9fb7a5eeee3e0ced7d4f8dc9dda50c3ccda011be849",
+      "bytes_dst": 4117
+    },
+    {
+      "src": "tests/__init__.py",
+      "dst": "tests/__init__.py",
+      "sha256_src": "46ed4e0d607d882580c391be58bfa63107d99551b16c3865d0c702ed5a2f4d7e",
+      "bytes_src": 75,
+      "edit": "none (verbatim)",
+      "sha256_dst": "46ed4e0d607d882580c391be58bfa63107d99551b16c3865d0c702ed5a2f4d7e",
+      "bytes_dst": 75
+    },
+    {
+      "src": "tests/rrt_synthetic.py",
+      "dst": "tests/rrt_synthetic.py",
+      "sha256_src": "b1b1a2866f8702b0231b26d6da598d898cfeba64d749c29ec3e99f1259084c37",
+      "bytes_src": 10246,
+      "edit": "none (verbatim)",
+      "sha256_dst": "b1b1a2866f8702b0231b26d6da598d898cfeba64d749c29ec3e99f1259084c37",
+      "bytes_dst": 10246
+    },
+    {
+      "src": "tests/test_scene.py",
+      "dst": "tests/test_scene.py",
+      "sha256_src": "d6c3c43be4bf564ca86a8c2f61f28be438cefc46de978c2ad04833f8fcafb4a0",
+      "bytes_src": 9589,
+      "edit": "none (verbatim)",
+      "sha256_dst": "d6c3c43be4bf564ca86a8c2f61f28be438cefc46de978c2ad04833f8fcafb4a0",
+      "bytes_dst": 9589
+    },
+    {
+      "src": "tests/test_task_progress.py",
+      "dst": "tests/test_task_progress.py",
+      "sha256_src": "40634a8de21c6d0c3ef17643c7ef941b017ba6d0c0c4df398ac2831cb254c848",
+      "bytes_src": 11274,
+      "edit": "none (verbatim)",
+      "sha256_dst": "40634a8de21c6d0c3ef17643c7ef941b017ba6d0c0c4df398ac2831cb254c848",
+      "bytes_dst": 11274
+    },
+    {
+      "src": "tests/test_random_starts.py",
+      "dst": "tests/test_random_starts.py",
+      "sha256_src": "0c3fa2f135e725e080baf26d8bea5c43a507b6492774e8aa10b4daeae06cf204",
+      "bytes_src": 8964,
+      "edit": "none (verbatim)",
+      "sha256_dst": "0c3fa2f135e725e080baf26d8bea5c43a507b6492774e8aa10b4daeae06cf204",
+      "bytes_dst": 8964
+    },
+    {
+      "src": "tests/test_collect_grasp_trajs.py",
+      "dst": "tests/test_collect_grasp_trajs.py",
+      "sha256_src": "f904af951ac023e19f23cf63f5378a0cc56434ebe4ff2e4a8cb720f9f671224f",
+      "bytes_src": 6835,
+      "edit": "none (verbatim)",
+      "sha256_dst": "f904af951ac023e19f23cf63f5378a0cc56434ebe4ff2e4a8cb720f9f671224f",
+      "bytes_dst": 6835
+    },
+    {
+      "src": "tests/test_auto_grasp.py",
+      "dst": "tests/test_auto_grasp.py",
+      "sha256_src": "349f8b4306e72729435ac1ce171ea451420347ce10dfd73b4e9418b4fc30a8d1",
+      "bytes_src": 12469,
+      "edit": "none (verbatim)",
+      "sha256_dst": "349f8b4306e72729435ac1ce171ea451420347ce10dfd73b4e9418b4fc30a8d1",
+      "bytes_dst": 12469
+    },
+    {
+      "src": "tests/test_misgrasp.py",
+      "dst": "tests/test_misgrasp.py",
+      "sha256_src": "ecb9db52f9d89b5533ca0bbcff0c348def059ad1640dcb201cc6430be79a6579",
+      "bytes_src": 15537,
+      "edit": "none (verbatim)",
+      "sha256_dst": "ecb9db52f9d89b5533ca0bbcff0c348def059ad1640dcb201cc6430be79a6579",
+      "bytes_dst": 15537
+    },
+    {
+      "src": "tests/test_probe_lift.py",
+      "dst": "tests/test_probe_lift.py",
+      "sha256_src": "011a09b614e5673290792b903e08ecc76a21adb0a173c09de5da34f85a9f4be6",
+      "bytes_src": 16725,
+      "edit": "none (verbatim)",
+      "sha256_dst": "011a09b614e5673290792b903e08ecc76a21adb0a173c09de5da34f85a9f4be6",
+      "bytes_dst": 16725
+    },
+    {
+      "src": "tests/test_compact_view.py",
+      "dst": "tests/test_compact_view.py",
+      "sha256_src": "e8c9fb0801d0f7c48e6c759f188410c885a64f683ea7f70db3b317b5db3f6ab0",
+      "bytes_src": 6789,
+      "edit": "none (verbatim)",
+      "sha256_dst": "e8c9fb0801d0f7c48e6c759f188410c885a64f683ea7f70db3b317b5db3f6ab0",
+      "bytes_dst": 6789
+    },
+    {
+      "src": "tests/test_tilt_safety.py",
+      "dst": "tests/test_tilt_safety.py",
+      "sha256_src": "863d2bd5e9cfaff669f23c37a1317eebeb9d575094a18825362144be763c6239",
+      "bytes_src": 6710,
+      "edit": "none (verbatim)",
+      "sha256_dst": "863d2bd5e9cfaff669f23c37a1317eebeb9d575094a18825362144be763c6239",
+      "bytes_dst": 6710
+    },
+    {
+      "src": "tests/test_exploration.py",
+      "dst": "tests/test_exploration.py",
+      "sha256_src": "a0e374fa9109f0622c19007ecf87a810f9364feec1b846728eb7042a685f3b36",
+      "bytes_src": 8859,
+      "edit": "none (verbatim)",
+      "sha256_dst": "a0e374fa9109f0622c19007ecf87a810f9364feec1b846728eb7042a685f3b36",
+      "bytes_dst": 8859
+    },
+    {
+      "src": "tests/test_guard_interactions.py",
+      "dst": "tests/test_guard_interactions.py",
+      "sha256_src": "cd80b4d654883ee161a400d1802597135e5fe3dfe72858afcacb44a04003869a",
+      "bytes_src": 7790,
+      "edit": "none (verbatim)",
+      "sha256_dst": "cd80b4d654883ee161a400d1802597135e5fe3dfe72858afcacb44a04003869a",
+      "bytes_dst": 7790
+    },
+    {
+      "src": "tests/test_parallel_collection.py",
+      "dst": "tests/test_parallel_collection.py",
+      "sha256_src": "12fa836a12280eac25f057599a9b61bb222fb7be2d9a4950984994b3e41ec784",
+      "bytes_src": 10007,
+      "edit": "none (verbatim)",
+      "sha256_dst": "12fa836a12280eac25f057599a9b61bb222fb7be2d9a4950984994b3e41ec784",
+      "bytes_dst": 10007
+    },
+    {
+      "src": "tests/test_inspect_grasp_dataset.py",
+      "dst": "tests/test_inspect_grasp_dataset.py",
+      "sha256_src": "bc88085e0f9625b631b6c9cf17b2e01df9ab5984a6cf6104e3c99ec8ab4988d3",
+      "bytes_src": 21920,
+      "edit": "none (verbatim)",
+      "sha256_dst": "bc88085e0f9625b631b6c9cf17b2e01df9ab5984a6cf6104e3c99ec8ab4988d3",
+      "bytes_dst": 21920
+    },
+    {
+      "src": "tests/test_benchmark_plan.py",
+      "dst": "tests/test_benchmark_plan.py",
+      "sha256_src": "d0f3d728be575509992a158a081d5fcc8e5b9004b0580312dbec0894c59d9d14",
+      "bytes_src": 9233,
+      "edit": "none (verbatim)",
+      "sha256_dst": "d0f3d728be575509992a158a081d5fcc8e5b9004b0580312dbec0894c59d9d14",
+      "bytes_dst": 9233
+    },
+    {
+      "src": "tests/test_benchmark_exploration.py",
+      "dst": "tests/test_benchmark_exploration.py",
+      "sha256_src": "746e6d76ee396c86101d5c2af9f0fd8de5451cafdc6c732523b399c2cdf48ec1",
+      "bytes_src": 20403,
+      "edit": "none (verbatim)",
+      "sha256_dst": "746e6d76ee396c86101d5c2af9f0fd8de5451cafdc6c732523b399c2cdf48ec1",
+      "bytes_dst": 20403
+    },
+    {
+      "src": "tests/test_benchmark_split.py",
+      "dst": "tests/test_benchmark_split.py",
+      "sha256_src": "1f46deac5a468343e661fbc446b2ad2c8cee23be5080c4b03423f45547ccdca2",
+      "bytes_src": 8243,
+      "edit": "none (verbatim)",
+      "sha256_dst": "1f46deac5a468343e661fbc446b2ad2c8cee23be5080c4b03423f45547ccdca2",
+      "bytes_dst": 8243
+    },
+    {
+      "src": "tests/test_bench_precheck_report.py",
+      "dst": "tests/test_bench_precheck_report.py",
+      "sha256_src": "353a2c06d078a2aec0efc72444b6146f7f37bc6d52d7b83d1b82ae57b8a1c907",
+      "bytes_src": 4319,
+      "edit": "none (verbatim)",
+      "sha256_dst": "353a2c06d078a2aec0efc72444b6146f7f37bc6d52d7b83d1b82ae57b8a1c907",
+      "bytes_dst": 4319
+    },
+    {
+      "src": "tests/test_bench_restore.py",
+      "dst": "tests/test_bench_restore.py",
+      "sha256_src": "91768d21452509b249c6d9921595b7d39322ac851fa7373eeda26ceeb9de8711",
+      "bytes_src": 11073,
+      "edit": "none (verbatim)",
+      "sha256_dst": "91768d21452509b249c6d9921595b7d39322ac851fa7373eeda26ceeb9de8711",
+      "bytes_dst": 11073
+    },
+    {
+      "src": "tests/test_collect_counterfactual_branches.py",
+      "dst": "tests/test_collect_counterfactual_branches.py",
+      "sha256_src": "268119dac80ced7187238828aa6a623be0e2a802500644ca16548806a1ff1d35",
+      "bytes_src": 13091,
+      "edit": "none (verbatim)",
+      "sha256_dst": "268119dac80ced7187238828aa6a623be0e2a802500644ca16548806a1ff1d35",
+      "bytes_dst": 13091
+    },
+    {
+      "src": "tests/test_random_branches.py",
+      "dst": "tests/test_random_branches.py",
+      "sha256_src": "9919fea7107ce8a2bb05c7ced094a20140e95d5fa595a43c070136673ac9b575",
+      "bytes_src": 40178,
+      "edit": "none (verbatim)",
+      "sha256_dst": "9919fea7107ce8a2bb05c7ced094a20140e95d5fa595a43c070136673ac9b575",
+      "bytes_dst": 40178
+    },
+    {
+      "src": "tests/test_rrt_action_law.py",
+      "dst": "tests/test_rrt_action_law.py",
+      "sha256_src": "baaf974d9a009f0f06a17828eb4ce7bec80e5f45e5cb69861f5303cb35e8083e",
+      "bytes_src": 24230,
+      "edit": "none (verbatim)",
+      "sha256_dst": "baaf974d9a009f0f06a17828eb4ce7bec80e5f45e5cb69861f5303cb35e8083e",
+      "bytes_dst": 24230
+    },
+    {
+      "src": "tests/test_rrt_branches.py",
+      "dst": "tests/test_rrt_branches.py",
+      "sha256_src": "b498e0ddb90035d0f60a13147b3ed00eadeda63ca2d887edd15e980fca7c3901",
+      "bytes_src": 51401,
+      "edit": "none (verbatim)",
+      "sha256_dst": "b498e0ddb90035d0f60a13147b3ed00eadeda63ca2d887edd15e980fca7c3901",
+      "bytes_dst": 51401
+    },
+    {
+      "src": "tests/test_rrt_roles.py",
+      "dst": "tests/test_rrt_roles.py",
+      "sha256_src": "a36c685da0597c418a0da43db1fb6982a219823084a0c5eda41f78d8c4250318",
+      "bytes_src": 43149,
+      "edit": "none (verbatim)",
+      "sha256_dst": "a36c685da0597c418a0da43db1fb6982a219823084a0c5eda41f78d8c4250318",
+      "bytes_dst": 43149
+    },
+    {
+      "src": "tests/test_rrt_plan_cache_pixels.py",
+      "dst": "tests/test_rrt_plan_cache_pixels.py",
+      "sha256_src": "643f98d3edea64495e0bc4fa5a66ca15481901e1ba389599f721876826a7790e",
+      "bytes_src": 4527,
+      "edit": "none (verbatim)",
+      "sha256_dst": "643f98d3edea64495e0bc4fa5a66ca15481901e1ba389599f721876826a7790e",
+      "bytes_dst": 4527
+    },
+    {
+      "src": "tests/test_rrt_pilot_yields.py",
+      "dst": "tests/test_rrt_pilot_yields.py",
+      "sha256_src": "114ae3a79119e19f3c5d8b62445f61e65d33aea032b5c88e4dbcaa335817471c",
+      "bytes_src": 21886,
+      "edit": "none (verbatim)",
+      "sha256_dst": "114ae3a79119e19f3c5d8b62445f61e65d33aea032b5c88e4dbcaa335817471c",
+      "bytes_dst": 21886
+    },
+    {
+      "src": "tests/test_convert_rrt_branches.py",
+      "dst": "tests/test_convert_rrt_branches.py",
+      "sha256_src": "07b65c9f0865a5465f2e3155198345ea9b71d6e05105ae3bf50584451c7758cd",
+      "bytes_src": 26454,
+      "edit": "release: test_train_role_end_to_end - the assertions on the post-conversion audit record (tilt_windows_stride3, extra_cache_guard, alignment), the cv.check_alignment call (needs finetune_dataset.TiltWindows) and the extra_cache_guard role check (needs finetune_tilt) were removed and replaced by one assertion that verification.post_conversion_audit == cv.AUDIT_SKIPPED (lines 190-195); test_dev_role_and_role_binding - its two assertions on extra_cache_guard / extra_dev_cache_windows were replaced by the same assertion (214). Everything else, including the conversion checks and the refusal tests, is unchanged.",
+      "sha256_dst": "315a19a4bfce5848246e4a10c52b5643385993543e5843cb32d6a0dfef051b7e",
+      "bytes_dst": 25626
+    },
+    {
+      "src": "wm_training/tests/__init__.py",
+      "dst": "wm_training/tests/__init__.py",
+      "sha256_src": "c146db0a9d5bad8d57c015e597d4a55935a75f3917ab28430f79e316607963d0",
+      "bytes_src": 84,
+      "edit": "none (verbatim)",
+      "sha256_dst": "c146db0a9d5bad8d57c015e597d4a55935a75f3917ab28430f79e316607963d0",
+      "bytes_dst": 84
+    },
+    {
+      "src": "wm_training/tests/test_data.py",
+      "dst": "wm_training/tests/test_data.py",
+      "sha256_src": "3369450a5056d501477581e30c994eaf9514dbef8c693f51d6897f7ca5de7949",
+      "bytes_src": 10589,
+      "edit": "none (verbatim)",
+      "sha256_dst": "3369450a5056d501477581e30c994eaf9514dbef8c693f51d6897f7ca5de7949",
+      "bytes_dst": 10589
+    },
+    {
+      "src": "wm_training/tests/test_parallel_prepare.py",
+      "dst": "wm_training/tests/test_parallel_prepare.py",
+      "sha256_src": "21512377b381d50ff4598b1bf7bd84191468fd608b1fbe7119c89b4ded18f667",
+      "bytes_src": 8595,
+      "edit": "none (verbatim)",
+      "sha256_dst": "21512377b381d50ff4598b1bf7bd84191468fd608b1fbe7119c89b4ded18f667",
+      "bytes_dst": 8595
+    },
+    {
+      "src": "wm_training/tests/test_danger_strata.py",
+      "dst": "wm_training/tests/test_danger_strata.py",
+      "sha256_src": "fd4856a25ff4e8d8237c7c277406df0d9e131b15b9a6244e89eba3bff206d75e",
+      "bytes_src": 24715,
+      "edit": "release: the imports of wm_training.evaluate_danger_strata (as cli; not shipped) and of unittest.mock.patch (only the removed class used it) were removed; native is imported from wm_training.danger_strata (line 16) and used directly (222); the CommandLineTests class (the evaluate_danger_strata CLI end to end) was removed (309). GeometryTests, EpisodeFeatureTests and EvaluationTests, which test danger_strata itself, are unchanged.",
+      "sha256_dst": "13c37be79b1145fd273aed98cc0c9286368c6684651957f5400f6b05f812d17a",
+      "bytes_dst": 18277
+    },
+    {
+      "src": "(new in this release)",
+      "dst": "make_video.py",
+      "sha256_src": null,
+      "bytes_src": null,
+      "edit": "release: new file - the display-free data viewer (GIF + contact sheet with the tilt overlay) for raw episodes, dataset directories (--grid for counterfactual branches), anchor_XXXX.npz rollout grids and training-cache .h5 episodes; numpy, Pillow and h5py only; never overwrites without --force.",
+      "sha256_dst": "3fec64d2bc819b08e56c2f716d6064bfa159861d3636b4a31fd857fcef3d7910",
+      "bytes_dst": 18801
+    },
+    {
+      "src": "(new in this release)",
+      "dst": "tests/test_make_video.py",
+      "sha256_src": null,
+      "bytes_src": null,
+      "edit": "release: new file - unit tests of make_video.py on synthetic frames in a temporary directory (episode, dataset --limit and counterfactual --grid, anchor npz grid / --rollout, h5 with and without diagnostics, overwrite refusal, unknown path); no simulator.",
+      "sha256_dst": "9695fa09bfbb73ef55631123ecccaab1ce2dac23e97a9ba4dcc7db5511f7e2e2",
+      "bytes_dst": 10918
+    }
+  ]
+}
